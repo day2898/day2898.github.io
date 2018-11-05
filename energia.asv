@@ -1,0 +1,6 @@
+function [e_t] = energia(f_t))
+%UNTITLED4 Summary of this function goes here
+%   Detailed explanation goes here
+e_t=int(f_t^2,-infty,infty);
+end
+

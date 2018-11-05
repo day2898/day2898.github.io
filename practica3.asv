@@ -1,0 +1,70 @@
+%% RPL03: Señales en tiempo continuo
+%% PRACTICA 3
+%
+%
+%%
+% | *Unidad Profesional Interdisciplinaria en Ingeniería y Tecnologías Avanzadas* |
+%
+%           | *Señales y Sistemas* |
+%
+%   INTEGRANTES
+% * Fajardo Granados Dayra Gabriela
+% * Ortíz Islas José Manuel
+% * Rodríguez Castillo silvia
+%
+%   PROFESOR
+% * Dr. Rafael Martínez Martínez
+%
+%   GRUPO
+% * 2TV2
+%
+%   FECHA 
+%
+% 5 de Noviembre de 2018
+%% OBJETIVOS
+%
+%
+% # Manipulación básica de MATLAB
+% # Gráficas de señales reales y complejas continuas
+% # Transformación de señales continuas (escalamientos y traslaciones)
+% # Calculo de energía y potencia de señales continuas
+%% DESARROLLO
+%
+% # Crea una función que se llame fun1 y reciba dos parametros $\omega$ y $a$ la función debe regresar la evaluación $F(\omega)=a/(a^2+\omega^2)$, esta función debe trabajr con $a\in R$ y $t\in  R^n$. 
+%
+% *|fun1|*
+%
+
+function [f_w] = fun1(e,d)
+w = real(e);
+a = real(d);
+f_w=a/(a^2+w^2);
+
+end
+
+%%
+% 2. Construya una función que gráfique funciones de $f:R\rightarrow R$ en el formato de su elección y pruebe su código mostrando la gráfica de $F(\omega)$ vs $\omega$ en el intervalo $[-2,2]$ para $a=1$, no debe incluir el código, solo el uso de la función para mostrar la gráfica
+
+% 3. Construya una función que gráfique funciones de $f:R\rightarrow R^2$ en el formato de su elección y pruebe su código mostrando la gráfica de la transformada de Fourier $F(w)$ en $[-10,10]$ de la función $f(t)=e^{-2t}u(t)$, puede utilizar una función anonima para este fin, no debe incluir el código, solo el uso de la función para mostrarla gráfica. Reporte la gráfica de $f(t)$ de $[-1,5]$ (recuerde que ya tiene una función para esto). Reporte del espectro de magnitud y del espectro de fase en $[-10,10]$ (puedes con sultar con help la descripción de abs, angle, atan2). Solo reporte las graficas.
+%
+% 4. Realiza las mismas operaciones que Lathi en las secciones M1.1 a M1.4 que se encuentra al final del capítulo 1 y antes de la sección de problemas, cambie los inline por funciones anonimas
+%
+% 5. Resuelve el problema 1.2.2 usando las herramientas del paso anterior
+%
+% # Escriba una función que se llame energia que reciba como argumento una función (anonima o simbolica) y que regrese el calculo de la energía, para esto puede resultar útil investigar las instrucciones int , integral Se presupone utilizar el código solo con funciones de energia. Muestre el código sin ejecutar, y posteriormente resuelva el problema 1.1.3
+%
+% # Escriba una función que se llame potencia que reciba como argumento una función (anonima o simbolica) y que regrese el calculo de la potencia para esto puede resultar útil investigar las instrucciones int , integral Se presupone utilizar el código solo con funciones de potencia. Muestre el código sin ejecutar, y posteriormente resuelva el problema 1.1.4
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%

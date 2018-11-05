@@ -1,0 +1,86 @@
+%% RPL03: Señales en tiempo continuo
+%% PRACTICA 3
+%
+%
+%%
+% | *Unidad Profesional Interdisciplinaria en Ingeniería y Tecnologías Avanzadas* |
+%
+%           | *Señales y Sistemas* |
+%
+%   INTEGRANTES
+% * Fajardo Granados Dayra Gabriela
+% * Ortíz Islas José Manuel
+% * Rodríguez Castillo silvia
+%
+%   PROFESOR
+% * Dr. Rafael Martínez Martínez
+%
+%   GRUPO
+% * 2TV2
+%
+%   FECHA 
+%
+% 5 de Noviembre de 2018
+%% OBJETIVOS
+%
+%
+% # Manipulación básica de MATLAB
+% # Gráficas de señales reales y complejas continuas
+% # Transformación de señales continuas (escalamientos y traslaciones)
+% # Calculo de energía y potencia de señales continuas
+%
+%% INTRODUCCION
+%
+%% Alternativas de software libre Octave y Python
+%% Octave
+% Octave o GNU Octave es un programa libre para realizar cálculos numéricos. MATLAB es considerado su equivalente comercial. Entre varias características que comparten se puede destacar que ambos ofrecen un intérprete permitiendo ejecutar órdenes en modo interactivo. Nótese que Octave no es un sistema de álgebra computacional como podría ser Maxima, sino que usa un lenguaje que está orientado al análisis numérico.
+% El proyecto fue creado alrededor del año 1988 pero con una finalidad diferente: Ser utilizado en un curso de diseño de reactores químicos. Posteriormente en el año 1992, se decide extenderlo y comienza su desarrollo a cargo de John W. Eaton. La primera versión alpha fue lanzada el 4 de enero de 1993. Un año más tarde, el 17 de febrero de 1994 aparece la versión 1.0.
+% Aquí podemos  <https://www.gnu.org/software/octave/download.html
+% Descargar> el software y aquí podemos hacer <https://octave-online.net/
+% uso> del sofware de manera online
+%% Python
+% Python es un lenguaje de programación creado por Guido van Rossum a principios de los años 90 cuyo nombre está inspirado en el grupo de cómicos ingleses “Monty Python”. Es un lenguaje similar a Perl, pero con una sintaxis muy limpia y que favorece un código legible. Básicamente, Python es un lenguaje de programación de alto nivel, interpretado y multipropósito
+% Python es open source, cualquiera puede contribuir a su desarrollo y divulgación. Además, no es necesario pagar ninguna licencia para distribuir software desarrollado con esté lenguaje. Hasta su intérprete se distribuye de forma gratuita para diferentes plataformas
+% Aquí podemos  <https://www.python.org/downloads/
+% Descargar> el software y aquí podemos hacer <https://live.sympy.org/
+% uso> del sofware de manera online
+%% DESARROLLO
+%
+% # Crea una función que se llame fun1 y reciba dos parametros $\omega$ y $a$ la función debe regresar la evaluación $F(\omega)=a/(a^2+\omega^2)$, esta función debe trabajr con $a\in R$ y $t\in  R^n$. 
+%
+% *|fun1|*
+%
+
+function [f_w] = fun1(e,d)
+%Crea una función que se llame fun1 y reciba dos parametros y la función...
+%debe regresar la evaluación,esta función debe trabajr con y . Debe mostrar
+%su código en el reporte (sin ejecutar)
+w = real(e);
+a = real(d);
+f_w=a/(a^2+w^2);
+
+end
+
+%%
+
+% 6. Escriba una función que se llame energia que reciba como argumento una función (anonima o simbolica) y que regrese el calculo de la energía, para esto puede resultar útil investigar las instrucciones int , integral Se presupone utilizar el código solo con funciones de energia. Muestre el código sin ejecutar, y posteriormente resuelva el problema 1.1.3
+%
+% * |energia| * 
+%
+function [e_t] = energia(f)
+syms t;
+f_t=f;
+e_t=int(f_t^2,-inf,inf);
+end
+%%
+% 7. Escriba una función que se llame potencia que reciba como argumento una función (anonima o simbolica) y que regrese el calculo de la potencia para esto puede resultar útil investigar las instrucciones int , integral Se presupone utilizar el código solo con funciones de potencia. Muestre el código sin ejecutar, y posteriormente resuelva el problema 1.1.4
+%
+% * |potencia| * 
+%
+function [p_t] = potencia(f,T)
+syms t;
+f_t=f;
+p_t=0.5*int(f_t^2,-T/2,T/2);
+end
+%%
+%
