@@ -1,0 +1,719 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>RPL04</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-11-12"><meta name="DC.source" content="SySPrac4FajardoOrtizRodriguez.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>RPL04</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#3">Objetivos</a></li><li><a href="#4">Introducci&oacute;n.</a></li><li><a href="#5">Desarrollo</a></li></ul></div><pre class="codeinput"><span class="comment">%Pr&aacute;ctica 4: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales en tiempo continuo</span>
+</pre><p>| Unidad Profesional Interdisciplinaria en Ingenier&iacute;a y Tecnolog&iacute;as Avanzadas |</p><pre>         | Se&ntilde;ales y Sistemas |</pre><pre class="language-matlab">INTEGRANTES
+* Fajardo Granados <span class="string">Dayra</span> <span class="string">Gabriela</span>
+* Ort&iacute;z Islas <span class="string">Jos&eacute;</span> <span class="string">Manuel</span>
+* Rodr&iacute;guez Castillo <span class="string">silvia</span>
+</pre><pre class="language-matlab">PROFESOR
+* Dr. Rafael Mart&iacute;nez Mart&iacute;nez
+</pre><pre class="language-matlab">GRUPO
+* 2TV2
+</pre><pre class="language-matlab">FECHA
+</pre><p>12 de Noviembre de 2018</p><h2>Objetivos<a name="3"></a></h2><div><ol><li>Conocer m&eacute;todos b&aacute;sicos de integraci&oacute;n num&eacute;rica.</li><li>Manipulaci&oacute;n de instrucciones en MATLAB.</li><li>Simular convoluciones y correlaciones de se&ntilde;ales continuas.</li></ol></div><h2>Introducci&oacute;n.<a name="4"></a></h2><p>La <a href="https://es.wikipedia.org/wiki/Integraci%C3%B3n_num%C3%A9rica">Integraci&oacute;n num&eacute;rica</a> constituye una amplia gama de algoritmos para calcular el valor num&eacute;rico de una integral definida. El problema b&aacute;sico considerado por la integraci&oacute;n num&eacute;rica es calcular una soluci&oacute;n aproximada a la integral definida.</p><p>Integral: Asociamos a este simbolo</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq11518683629591826499.png" alt="$\int_{a}^{b}f(x)dx$"></p><p>el &aacute;rea definida por:</p><div><ul><li>La gr&aacute;fica de la funci&oacute;n  <img src="SySPrac4FajardoOrtizRodriguez_eq17663307419741296505.png" alt="$f(x)$"></li><li>La recta   <img src="SySPrac4FajardoOrtizRodriguez_eq09508624007144122830.png" alt="$l_{1}((a,0),(a,f(a)))$"></li><li>La recta   <img src="SySPrac4FajardoOrtizRodriguez_eq16921767987208474878.png" alt="$l_{2}((b,0),(b,f(b)))$"></li><li>La recta    <img src="SySPrac4FajardoOrtizRodriguez_eq16240565526604750428.png" alt="$l_{3}((a,0),(b,0))$"> E=imread('1.jpg');</li></ul></div><p><img vspace="5" hspace="5" src="1.PNG" alt=""> </p><p><img vspace="5" hspace="5" src="1.jpg" alt=""> </p><p>Una de estas apr&oacute;ximaciones son las f&oacute;rmulas cerradas de Newton-Cotes ya que estas resuelven problemas para funciones continuas y derivables <img src="SySPrac4FajardoOrtizRodriguez_eq08984225997457563733.png" alt="$n$"> veces asociando un polinomio de Lagrange y un termino de error a la funci&oacute;n, es decir:</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq10957030163160000596.png" alt="$f(x)=P(x)+\frac{f^{n+1}(\xi (x))}{(n+1)!}(x-x_{0})(x-x_{1})...(x-x_{n})$"></p><p><img vspace="5" hspace="5" src="2.jpg" alt=""> </p><p>F&oacute;rmula cerrada de (n+1) puntos de Newton-Cotes: Se refiere al grado del polinomio y la asosiaci&oacute;n de los puntos que se necesitan para interpolarlo con la funci&oacute;n. Se tomaran en cuenta los siguientes par&aacute;metros:</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq01056269978726897643.png" alt="$x_{0}=a$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq00331310322815514266.png" alt="$x_{n}=b$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq14663764134541110566.png" alt="$h=\frac{b-a}{n}$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq01156750310029607549.png" alt="$x_{i}=x_{0}+ih; i=0,1,2,...,n.$"></p><p>1. Regla del trapecio: Es el &aacute;rea del trapecio definida por el polinomio de grado 1 (n=1). Se define as&iacute;</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq00038467264336921913.png" alt="$\int_{x_{0}}^{x_{1}}f(x)dx=\frac{h}{2}[f(x_{0})+f(x_{1})]-\frac{h^{3}}{12}f^{''}(\xi )$"> ; <img src="SySPrac4FajardoOrtizRodriguez_eq09851620983158324295.png" alt="$x_{0}<\xi<x_{1}$"></p><p>Para este caso los par&aacute;metros son:</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq01056269978726897643.png" alt="$x_{0}=a$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq17811075688672136472.png" alt="$x_{1}=b$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq04610332200503056764.png" alt="$h=b-a$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq02041310149980640045.png" alt="$x_{i}=a+i(b-a); i=0,1.$"></p><p>Esta f&oacute;rmula tiene grado de precisi&oacute;n 1, es decir, como el polinomio es de grado 1 su segunda derivada es cero por lo que no hay error (la aproximaci&oacute;n es exacta).</p><div><ul><li>Ejemplo</li></ul></div><p><img src="SySPrac4FajardoOrtizRodriguez_eq17903565201655529434.png" alt="$\int_{x_{-1}}^{x_{1}}e^{-x^{2}}dx=\frac{2}{2}[e^{-1}+e^{-1}]-\frac{8}{12}[-2e^{\xi^{2}}(1-2\xi^{2})]; -1<\xi<1$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq07940303873357210159.png" alt="$=0.7357+\frac{4}{3}e^{\xi^{2}}(1-2\xi^{2}); -1<\xi<1$"></p><p>2. Regla de Simpson: Es el &aacute;rea definida por la par&aacute;bola que pasa por los puntos <img src="SySPrac4FajardoOrtizRodriguez_eq11097464832748901866.png" alt="$x_{0},x_{1} y x_{2}$"> (n=2). Se define as&iacute;</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq14854041609763989696.png" alt="$\int_{x_{0}}^{x_{1}}f(x)dx=\frac{h}{3}[f(x_{0})+4f(x_{1})+f(x_{2})]-\frac{h^{5}}{90}f^{4}(\xi )$"> ; <img src="SySPrac4FajardoOrtizRodriguez_eq13694873134383015671.png" alt="$x_{0}<\xi<x_{2}$"></p><p>Para este caso los par&aacute;metros son:</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq01056269978726897643.png" alt="$x_{0}=a$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq00926360123370829447.png" alt="$x_{2}=b$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq09636629550107206880.png" alt="$h=\frac{b-a}{2}$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq17195798623955819327.png" alt="$x_{i}=a+ih; i=0,1,2. \rightarrow x_{1}=a+i(\frac{b-a}{2})=\frac{b+a}{2}$"></p><p>Esta f&oacute;rmula tiene grado de precisi&oacute;n 3, es decir, como el polinomio es de grado 3 su cuarta derivada es cero por lo que no hay error (la aproximaci&oacute;n es exacta).</p><div><ul><li>Ejemplo</li></ul></div><p><img src="SySPrac4FajardoOrtizRodriguez_eq17879976587777796069.png" alt="$\int_{x_{-1}}^{x_{1}}e^{-x^{2}}dx=\frac{1}{3}[e^{-1}+4e^{0}+e^{-1}]-\frac{1}{90}[-4e^{\xi^{2}}(-4\xi^{4}+12\xi^{2}-3)]; -1<\xi<1$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq10309386987507192341.png" alt="$=1.5785+\frac{2}{45}e^{-\xi^{2}}(-4\xi^{4}+12\xi^{2}-3); -1<\xi<1$"></p><p>3. Regla tres octavos de Simpson: Es el &aacute;rea definida por los puntos <img src="SySPrac4FajardoOrtizRodriguez_eq12702243314442994215.png" alt="$x_{0},x_{1},x_{2} y x_{3}$"> (n=3). Se define as&iacute;</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq09489396629059879655.png" alt="$\int_{x_{0}}^{x_{1}}f(x)dx=\frac{3h}{8}[f(x_{0})+5f(x_{1})+3f(x_{2}+f(x_{3})]-\frac{-3h^{5}}{80}f^{4}(\xi )$"> ; <img src="SySPrac4FajardoOrtizRodriguez_eq11939979738249825864.png" alt="$x_{0}<\xi<x_{3}$"></p><p>Para este caso los par&aacute;metros son:</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq01056269978726897643.png" alt="$x_{0}=a$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq18424229842987356267.png" alt="$x_{3}=b$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq09593670058623902766.png" alt="$h=\frac{b-a}{3}$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq17169615884636462657.png" alt="$x_{i}=a+ih; i=0,1,2. \rightarrow x_{1}=a+(\frac{b-a}{3})=\frac{b+2a}{3}\rightarrow x_{2}=a+2(\frac{b-a}{3})=a+\frac{2b-2a2a}{3}$"></p><p>Esta f&oacute;rmula tiene grado de precisi&oacute;n 3, es decir, como el polinomio es de grado 3 su cuarta derivada es cero por lo que no hay error (la aproximaci&oacute;n es exacta).</p><div><ul><li>Ejemplo</li></ul></div><p><img src="SySPrac4FajardoOrtizRodriguez_eq16792527642508739348.png" alt="$\int_{x_{-1}}^{x_{1}}e^{-x^{2}}dx=(\frac{3}{8})(\frac{2}{3})[e^{-1}+3e^{-1/9}+3e^{-1/9}+e^{-1}]-(\frac{3}{80})(\frac{2}{5})^{5}[-4e^{\xi^{2}}(-4\xi^{4}+12\xi^{2}-3)]; -1<\xi<1$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq03932429168482861773.png" alt="$=1.5261+\frac{8}{405}e^{-\xi^{2}}(-4\xi^{4}+12\xi^{2}-3); -1<\xi<1$"></p><p>NOTA: Mientras m&aacute;s interpolaciones haya mejor ser&aacute; la aproxcimaci&oacute;n.</p><p>F&oacute;rmulas de Newton-Cotes compuestas: Se busca aproximar con m&aacute;s de un trapecio, este se tratara de forma independiente</p><p>1. Regla compuesta del trapecio</p><p>Se define as&iacute;:</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq15767676859366611592.png" alt="$\int_{x_{0}}^{x_{1}}f(x)dx\approx\frac{h}{a}[f(x_{0})+f(x_{1})]$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq17276948618125806197.png" alt="$\int_{x_{a}}^{x_{b}}f(x)dx=\frac{h}{2}[f(a)+\sum_{j=1}^{n-1}f(x_{j})+f(b)]-\frac{b-a}{2}h^{2}f^{''}(u) \rightarrow u\epsilon (a,b)$"></p><p>Donde:</p><div><ul><li>n es el n&uacute;mero de subintervalos</li></ul></div><div><ul><li><img src="SySPrac4FajardoOrtizRodriguez_eq15654784669149727152.png" alt="$k=\frac{b-a}{n}$">  paso</li></ul></div><div><ul><li><img src="SySPrac4FajardoOrtizRodriguez_eq06650310548822328320.png" alt="$x_{j}=a+jh$"> ; j=0,1,2,...,n</li></ul></div><div><ul><li>Ejemplo</li></ul></div><p><img src="SySPrac4FajardoOrtizRodriguez_eq17829428309718495710.png" alt="$n=10;$"> <img src="SySPrac4FajardoOrtizRodriguez_eq03496456304222293645.png" alt="$k=\frac{1+1}{10}=0.2;$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq05629389226738296642.png" alt="$x_{0}=-1,x_{1}=-0.8,x_{2}=-0.6,...,x_{9}=0.8,x_{10}=1;$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq02433949741322177183.png" alt="$\int_{-1}^{1}e^{-x^{2}}dx=\frac{0.2}{2}\left \lfloor e^{-1}+2\sum_{j=1}^{n-1}e^{-x_{j}^{2}}+e^{-1} \right \rfloor -\frac{2}{12}(0.2)^{2}\left \lfloor -2e^{-u^{2}}(1-2u^{2}) \right \rfloor$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq03571245571325432714.png" alt="$=1.4887+0.0133e^{-u^{2}}(1-2u^{2}); -1<u<1$"></p><p>2. Regla compuesta de Simpson</p><p>Se define as&iacute;:</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq03611832969426049066.png" alt="$\int_{x_{0}}^{x_{2}}f(x)dx\approx\frac{h}{3}[f(x_{0})+4f(x_{1})+f(x_{2})]$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq02602991220589366181.png" alt="$\int_{x_{a}}^{x_{b}}f(x)dx=\frac{h}{3}[f(a)+2\sum_{j=1}^{frac{n}{2}-1}f(x_{2j})+4\sum_{j=1}^{frac{n}{2}}f(x_{2j-1})+f(b)]-\frac{b-a}{180}h^{4}f^{4}(u) \rightarrow u\epsilon (a,b)$"></p><p>Donde:</p><div><ul><li>n es el n&uacute;mero par de subintervalos</li></ul></div><div><ul><li><img src="SySPrac4FajardoOrtizRodriguez_eq15654784669149727152.png" alt="$k=\frac{b-a}{n}$">  paso</li></ul></div><div><ul><li><img src="SySPrac4FajardoOrtizRodriguez_eq06650310548822328320.png" alt="$x_{j}=a+jh$"> ; j=0,1,2,...,n</li></ul></div><div><ul><li>Ejemplo</li></ul></div><p><img src="SySPrac4FajardoOrtizRodriguez_eq17829428309718495710.png" alt="$n=10;$"> <img src="SySPrac4FajardoOrtizRodriguez_eq03496456304222293645.png" alt="$k=\frac{1+1}{10}=0.2;$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq05629389226738296642.png" alt="$x_{0}=-1,x_{1}=-0.8,x_{2}=-0.6,...,x_{9}=0.8,x_{10}=1;$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq11938863525359262496.png" alt="$\int_{-1}^{1}e^{-x^{2}}dx=\frac{0.2}{8}\left \lfloor e^{-1}+2\sum_{j=1}^{4}e^{-x_{sj}^{2}}+4\sum_{j=1}^{5}e^{(x_{2j}-1)^2}+e^{-1} \right \rfloor -\frac{2}{180}(0.2)^{4}\left \lfloor -4e^{-u^{2}}(-4u^{2}+12u^{2}-3) \right \rfloor$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq17185078297118371391.png" alt="$=1.4936+0.000021e^{-u^{2}}(-4u^{2}+12u^{2}-3); -1<u<1$"></p><p>Otra aproximaci&oacute;n es la Cuadratura Gaussiana esta trata de aproximar una integral en un intervalo por evaluaciones en determinados puntos por determinadas constantes (el n&uacute;mero de evaluaciones tiene restricciones, <img src="SySPrac4FajardoOrtizRodriguez_eq15071035700124369223.png" alt="$2n$"> par&aacute;metros). Para la aproximaci&oacute;n se utilizan polinomios de Legendre que se tiene propiedades importantes en el intervalo <img src="SySPrac4FajardoOrtizRodriguez_eq08432533812792491169.png" alt="$(-1,1)$"></p><p>Se define as&iacute; :</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq12928998828894040547.png" alt="$\int_{a}^{b}f(x)dx=\sum_{i=1}^{n}C_{i}f(x_{i})$"></p><p>Resultado:</p><div><ul><li><img src="SySPrac4FajardoOrtizRodriguez_eq15084836845238326044.png" alt="$P_{n}(x)$"> es el polinomio de Legendre (con grado menor que <img src="SySPrac4FajardoOrtizRodriguez_eq15071035700124369223.png" alt="$2n$">), entonces x_{1},x_{2},...,x_{n} son ra&iacute;ces de P_{n}(x) y estas son reales</li></ul></div><div><ul><li><img src="SySPrac4FajardoOrtizRodriguez_eq10478070041396080063.png" alt="$C_{i}=\int_{-1}^{1}\prod_{j=1}^{n}\frac{x-x_{j}}{x_{c}-x_{j}}dx$"> entonces <img src="SySPrac4FajardoOrtizRodriguez_eq01408429489260045938.png" alt="$\int_{a}^{b}P(x)dx= \sum_{i=1}^{n}C_{i}P(x_{j})$"></li></ul></div><p>Como no siempre se quieres integrar en el intervalo <img src="SySPrac4FajardoOrtizRodriguez_eq08432533812792491169.png" alt="$(-1,1)$">, se hace el siguiente cambio de variable:</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq15101723237685349769.png" alt="$t=\frac{2x-a-b}{b}$"></p><p><img src="SySPrac4FajardoOrtizRodriguez_eq02761917166597877545.png" alt="$x=\frac{1}{2}[(b-a)t+a+b]$"></p><p>entonces:</p><p><img src="SySPrac4FajardoOrtizRodriguez_eq15406577084908438168.png" alt="$\int_{a}^{b}f(x)dx=\int_{-1}^{1}f\left [ \frac{(b-a)t+b+a}{2} \right ](\frac{b-a}{2})dt$"></p><div><ul><li>Ejemplo con <img src="SySPrac4FajardoOrtizRodriguez_eq04968715417579708634.png" alt="$n=2$"></li></ul></div><p><img src="SySPrac4FajardoOrtizRodriguez_eq00214466876529719102.png" alt="$\int_{-1}^{1}e^{-x^{2}}dx=e^{(-0.5773502692)^2}+e^{(0.5773502692)^2}\approx 1.4331$"></p><div><ul><li>Ejemplo con <img src="SySPrac4FajardoOrtizRodriguez_eq00013378311338420650.png" alt="$n=3$"></li></ul></div><p><img src="SySPrac4FajardoOrtizRodriguez_eq13450368316923951894.png" alt="$\int_{-1}^{1}e^{-x^{2}}dx=0.5555555556e^{(-0.7745966692)^2}+0.888888889+0.5555555556e^{(0.7745966692)^2}\approx 1.4986$"></p><h2>Desarrollo<a name="5"></a></h2><div><ol><li>Problema 1 (PR04 ejercicio 1: Convoluci&oacute;n de se&ntilde;ales)</li><li>Problema 2 (PR04 ejercicio 1: Convoluci&oacute;n de se&ntilde;ales)</li><li>Problema 3 (PR06 inciso e: Autocorrelaci&oacute;n de una se&ntilde;al)</li><li>Problema 4 (PR06 inciso f: Correlaci&oacute;n de se&ntilde;ales)</li></ol></div><p>1. Para el PR04 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la convoluci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema 1, esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales invlucradas como el resultado de la convoluci&oacute;n, y en esta &uacute;ltima gr&aacute;ficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><pre class="codeinput">dt= 1e-3;
+t= -2:dt:3;
+x_t= (-t+1).*(u(t)-u(t-1))+(t-1).*(u(t-1)-u(t-2));
+h_t=u(t)-u(t-1);
+t1=0:0.1:1;
+t2=1:0.1:2;
+t3=2:0.1:3;
+
+figure(1)
+
+subplot(1,3,1)
+plot(t,x_t,<span class="string">'b .-'</span>);
+title(<span class="string">'x(t)'</span>)
+grid <span class="string">on</span>;
+axis([-0.5 2.5 -0.2 1.2]);
+
+subplot(1,3,2)
+plot(t,h_t,<span class="string">' b .-'</span>);
+title(<span class="string">'h(t)'</span>)
+grid <span class="string">on</span>;
+axis([-0.5 1.5 -0.2 1.2]);
+
+subplot(1,3,3)
+plot(t1,(((t1.^2)/2)+1/4.*t1), <span class="string">'y .'</span>);
+hold <span class="string">on</span>;
+plot(t2, (t2.^2-3.*t2+5/2), <span class="string">'g .'</span>);
+plot (t3, (((-t3.^2)/2)+2.*t3-3/2), <span class="string">'c .'</span>);
+title(<span class="string">'x(t)*h(t)'</span>)
+grid <span class="string">on</span>;
+axis([-0.1 3.1 -0.1 0.7]);
+</pre><img vspace="5" hspace="5" src="SySPrac4FajardoOrtizRodriguez_01.png" alt=""> <p>2. Para el PR04 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la convoluci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema 3, esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales invlucradas como el resultado de la convoluci&oacute;n, y en esta &uacute;ltima gr&aacute;ficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><pre class="codeinput">clc
+clear <span class="string">all</span>
+close <span class="string">all</span>
+syms <span class="string">t</span>
+
+<span class="comment">%----------------------------------------------------</span>
+dt= 1e-3;
+t= -2:dt:3;
+t1=0:0.1:4;
+f_t=t.*u(t) - (t-1).*u(t-1)- u(t-2);
+g_t=(u(t-1))-(u(t-3));
+figure(3)
+subplot(1,3,1)
+plot(t,f_t,<span class="string">'r .-'</span>);
+title(<span class="string">'f(t)'</span>)
+grid <span class="string">on</span>;
+axis([-0.3 2.2 -0.2 1.2]);
+
+subplot(1,3,2)
+plot(t,g_t,<span class="string">' r .-'</span>);
+title(<span class="string">'g(t)'</span>)
+grid <span class="string">on</span>;
+axis([0.7 3.2 -0.2 1.2]);
+
+subplot (1,3,3)
+plot(t1, (((t1.^3)/2)-((8/2).*t1.^2)+(9.*t1)-2), <span class="string">'c .'</span>);
+title(<span class="string">'f(t)*g(t)'</span>)
+grid <span class="string">on</span>
+axis ([-0.2 3.2 -0.1 5]);
+<span class="comment">%--------------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="SySPrac4FajardoOrtizRodriguez_02.png" alt=""> <p>3. Para el PR06 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema e), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><pre class="codeinput">clc
+clear <span class="string">all</span>
+close <span class="string">all</span>
+syms <span class="string">t</span>
+figure
+subplot(2,2,1)
+<span class="comment">%x=piecewise(t&lt;0,0,0&lt;t&lt;1,1.5*sin(pi*t),t&gt;1,0);</span>
+x = @(t) -1*(t&gt;=-4&amp;t&lt;=-3)+1*(t&gt;-3&amp;t&lt;=0)+0*(t&lt;-4&amp;t&gt;0);
+x1 = @(t) 1*(t&gt;=0&amp;t&lt;=3)-1*(t&gt;3&amp;t&lt;=4)+0*(t&lt;0&amp;t&gt;4);
+fplot(x1,[-1,5],<span class="string">'r'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'x(t)'</span>)
+axis([-3 6 -2 2]);
+subplot(2,2,2)
+<span class="comment">%h=piecewise(t&lt;0,0,0&lt;t&lt;1,1.5,1&lt;t&lt;2,0,2&lt;t&lt;2.5,-1.5,t&gt;2.5,0);</span>
+h = @(t) 1*(t&gt;=0&amp;t&lt;=3)-1*(t&gt;3&amp;t&lt;=4)+0*(t&lt;0&amp;t&gt;4);
+fplot(h,[-1,5],<span class="string">'r'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'h(t)'</span>)
+axis([-3 6 -2 2]);
+t1=-4:0.01:-3;
+t2=-3:0.01:-1;
+t3=-1:0.01:0;
+t4=0:0.01:1;
+t5=1:0.01:3;
+t6=3:0.01:4;
+subplot(2,2,3:4)
+hold <span class="string">on</span>
+convconme(x,h)
+grid <span class="string">on</span>
+subplot(2,2,3:4)
+hold <span class="string">on</span>
+plot(t1,-t1-4,<span class="string">'r'</span>)
+plot(t2,t2+2,<span class="string">'c'</span>)
+plot(t3,3*t3+4,<span class="string">'g'</span>)
+plot(t4,-3*t4+4,<span class="string">'y'</span>)
+plot(t5,-1*t5+2,<span class="string">'m'</span>)
+plot(t6, t6-4,<span class="string">'b'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'x(t)*h(t)'</span>)
+axis([-6 6 -2 5]);
+</pre><pre class="codeoutput">Warning: Ignoring extra legend entries. 
+</pre><img vspace="5" hspace="5" src="SySPrac4FajardoOrtizRodriguez_03.png" alt=""> <pre class="codeinput"><span class="comment">%4.-Para el PR06 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema f), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</span>
+clc
+clear <span class="string">all</span>
+close <span class="string">all</span>
+syms <span class="string">t</span>
+figure
+subplot(2,2,1)
+<span class="comment">%x=piecewise(t&lt;0,0,0&lt;t&lt;1,1.5*sin(pi*t),t&gt;1,0);</span>
+x = @(t) -1*(t&gt;=-4&amp;t&lt;=-2)+1*(t&gt;-2&amp;t&lt;=0);
+x1 = @(t) 1*(t&gt;=0&amp;t&lt;=2)-1*(t&gt;2&amp;t&lt;=4);
+fplot(x1,[-2,5],<span class="string">'r'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'x(t)'</span>)
+axis([-3 6 -2 2]);
+subplot(2,2,2)
+<span class="comment">%h=piecewise(t&lt;0,0,0&lt;t&lt;1,1.5,1&lt;t&lt;2,0,2&lt;t&lt;2.5,-1.5,t&gt;2.5,0);</span>
+h = @(t) 1*(t&gt;=0&amp;t&lt;=3)-1*(t&gt;3&amp;t&lt;=4)+0*(t&lt;0&amp;t&gt;4);
+fplot(h,[-2,5],<span class="string">'r'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'h(t)'</span>)
+axis([-3 6 -2 2]);
+t1=-4:0.01:-2;
+t2=-2:0.01:-1;
+t3=-1:0.01:0;
+t4=0:0.01:1;
+t5=1:0.01:2;
+t6=2:0.01:3;
+t7=3:0.01:4;
+subplot(2,2,3:4)
+hold <span class="string">on</span>
+convconmf(x,h)
+grid <span class="string">on</span>
+subplot(2,2,3:4)
+hold <span class="string">on</span>
+plot(t1,-t1-4,<span class="string">'r'</span>)
+plot(t2,t2,<span class="string">'c'</span>)
+plot(t3,3*t3+2,<span class="string">'g'</span>)
+plot(t4,t4+2,<span class="string">'b'</span>)
+plot(t5,-3*t5+6,<span class="string">'m'</span>)
+plot(t6, -t6+2,<span class="string">'r'</span>)
+plot(t7, t7-4,<span class="string">'c'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'x(t)*h(t)'</span>)
+axis([-6 6 -4 4]);
+</pre><pre class="codeoutput">Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+Warning: Ignoring extra legend entries. 
+</pre><img vspace="5" hspace="5" src="SySPrac4FajardoOrtizRodriguez_04.png" alt=""> <pre class="codeinput"><span class="comment">%Referencias</span>
+<span class="comment">%https://es.wikipedia.org/wiki/Integraci&oacute;n_num&eacute;rica</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% RPL04
+%%
+%Práctica 4: Convolución y Correlación de señales en tiempo continuo
+%%
+% | Unidad Profesional Interdisciplinaria en Ingeniería y Tecnologías Avanzadas |
+%
+%           | Señales y Sistemas |
+%
+%   INTEGRANTES
+% * Fajardo Granados Dayra Gabriela
+% * Ortíz Islas José Manuel
+% * Rodríguez Castillo silvia
+%
+%   PROFESOR
+% * Dr. Rafael Martínez Martínez
+%
+%   GRUPO
+% * 2TV2
+%
+%   FECHA 
+%
+% 12 de Noviembre de 2018
+%% Objetivos
+%
+%
+% # Conocer métodos básicos de integración numérica.
+% # Manipulación de instrucciones en MATLAB.
+% # Simular convoluciones y correlaciones de señales continuas.
+%
+%% Introducción.
+%
+% La <https://es.wikipedia.org/wiki/Integraci%C3%B3n_num%C3%A9rica
+% Integración numérica> constituye una amplia gama de algoritmos para 
+% calcular el valor numérico de una integral definida. El problema básico 
+% considerado por la integración numérica es calcular una solución 
+% aproximada a la integral definida.
+%
+% Integral: Asociamos a este simbolo 
+%
+% $\int_{a}^{b}f(x)dx$
+%
+% el área definida por:
+%
+% * La gráfica de la función  $f(x)$
+% * La recta   $l_{1}((a,0),(a,f(a)))$
+% * La recta   $l_{2}((b,0),(b,f(b)))$
+% * La recta    $l_{3}((a,0),(b,0))$
+% E=imread('1.jpg');
+% 
+% <<1.PNG>>
+% 
+% <<1.jpg>>
+% 
+% Una de estas apróximaciones son las fórmulas cerradas de Newton-Cotes
+% ya que estas resuelven problemas para funciones continuas y derivables
+% $n$ veces asociando un polinomio de Lagrange y un termino de error a la función, es
+% decir:
+%
+% $f(x)=P(x)+\frac{f^{n+1}(\xi (x))}{(n+1)!}(x-x_{0})(x-x_{1})...(x-x_{n})$
+%
+% 
+% 
+% <<2.jpg>>
+% 
+% 
+% Fórmula cerrada de (n+1) puntos de Newton-Cotes: Se refiere al
+% grado del polinomio y la asosiación de los puntos que se necesitan para
+% interpolarlo con la función. Se tomaran en cuenta los siguientes parámetros:
+%
+% $x_{0}=a$
+%
+% $x_{n}=b$
+%
+% $h=\frac{b-a}{n}$
+%
+% $x_{i}=x_{0}+ih; i=0,1,2,...,n.$
+%
+%
+% 
+% 1. Regla del trapecio: Es el área del trapecio definida por el polinomio
+% de grado 1 (n=1). Se define así 
+%
+% $\int_{x_{0}}^{x_{1}}f(x)dx=\frac{h}{2}[f(x_{0})+f(x_{1})]-\frac{h^{3}}{12}f^{''}(\xi
+% )$ ; $x_{0}<\xi<x_{1}$
+% 
+% Para este caso los parámetros son:
+%
+% $x_{0}=a$
+%
+% $x_{1}=b$
+%
+% $h=b-a$
+%
+% $x_{i}=a+i(b-a); i=0,1.$
+%
+% Esta fórmula tiene grado de precisión 1, es decir, como el polinomio es
+% de grado 1 su segunda derivada es cero por lo que no hay error (la
+% aproximación es exacta).
+%
+% * Ejemplo
+%
+% $\int_{x_{-1}}^{x_{1}}e^{-x^{2}}dx=\frac{2}{2}[e^{-1}+e^{-1}]-\frac{8}{12}[-2e^{\xi^{2}}(1-2\xi^{2})]; -1<\xi<1$
+% 
+% $=0.7357+\frac{4}{3}e^{\xi^{2}}(1-2\xi^{2}); -1<\xi<1$
+%
+% 2. Regla de Simpson: Es el área definida por la parábola que pasa por
+% los puntos $x_{0},x_{1} y x_{2}$ (n=2). Se define así 
+%
+% $\int_{x_{0}}^{x_{1}}f(x)dx=\frac{h}{3}[f(x_{0})+4f(x_{1})+f(x_{2})]-\frac{h^{5}}{90}f^{4}(\xi
+% )$ ; $x_{0}<\xi<x_{2}$
+% 
+% Para este caso los parámetros son:
+%
+% $x_{0}=a$
+%
+% $x_{2}=b$
+%
+% $h=\frac{b-a}{2}$
+%
+% $x_{i}=a+ih; i=0,1,2. \rightarrow x_{1}=a+i(\frac{b-a}{2})=\frac{b+a}{2}$
+%
+% Esta fórmula tiene grado de precisión 3, es decir, como el polinomio es
+% de grado 3 su cuarta derivada es cero por lo que no hay error (la
+% aproximación es exacta).
+%
+% * Ejemplo
+%
+% $\int_{x_{-1}}^{x_{1}}e^{-x^{2}}dx=\frac{1}{3}[e^{-1}+4e^{0}+e^{-1}]-\frac{1}{90}[-4e^{\xi^{2}}(-4\xi^{4}+12\xi^{2}-3)]; -1<\xi<1$
+% 
+% $=1.5785+\frac{2}{45}e^{-\xi^{2}}(-4\xi^{4}+12\xi^{2}-3); -1<\xi<1$
+%
+%
+%
+% 3. Regla tres octavos de Simpson: Es el área definida por los puntos $x_{0},x_{1},x_{2} y x_{3}$ (n=3). 
+% Se define así 
+%
+% $\int_{x_{0}}^{x_{1}}f(x)dx=\frac{3h}{8}[f(x_{0})+5f(x_{1})+3f(x_{2}+f(x_{3})]-\frac{-3h^{5}}{80}f^{4}(\xi
+% )$ ; $x_{0}<\xi<x_{3}$
+% 
+% Para este caso los parámetros son:
+%
+% $x_{0}=a$
+%
+% $x_{3}=b$
+%
+% $h=\frac{b-a}{3}$
+%
+% $x_{i}=a+ih; i=0,1,2. \rightarrow x_{1}=a+(\frac{b-a}{3})=\frac{b+2a}{3}\rightarrow x_{2}=a+2(\frac{b-a}{3})=a+\frac{2b-2a2a}{3}$
+%
+% Esta fórmula tiene grado de precisión 3, es decir, como el polinomio es
+% de grado 3 su cuarta derivada es cero por lo que no hay error (la
+% aproximación es exacta).
+%
+% * Ejemplo
+%
+% $\int_{x_{-1}}^{x_{1}}e^{-x^{2}}dx=(\frac{3}{8})(\frac{2}{3})[e^{-1}+3e^{-1/9}+3e^{-1/9}+e^{-1}]-(\frac{3}{80})(\frac{2}{5})^{5}[-4e^{\xi^{2}}(-4\xi^{4}+12\xi^{2}-3)]; -1<\xi<1$
+% 
+% $=1.5261+\frac{8}{405}e^{-\xi^{2}}(-4\xi^{4}+12\xi^{2}-3); -1<\xi<1$
+%
+% NOTA: Mientras más interpolaciones haya mejor será la aproxcimación.
+% 
+% 
+% Fórmulas de Newton-Cotes compuestas: Se busca aproximar con más de un
+% trapecio, este se tratara de forma independiente 
+%
+% 1. Regla compuesta del trapecio
+%
+% Se define así:
+%
+% $\int_{x_{0}}^{x_{1}}f(x)dx\approx\frac{h}{a}[f(x_{0})+f(x_{1})]$
+%
+% $\int_{x_{a}}^{x_{b}}f(x)dx=\frac{h}{2}[f(a)+\sum_{j=1}^{n-1}f(x_{j})+f(b)]-\frac{b-a}{2}h^{2}f^{''}(u)
+% \rightarrow u\epsilon (a,b)$
+%
+% Donde: 
+% 
+% * n es el número de subintervalos
+%
+% * $k=\frac{b-a}{n}$  paso
+%
+% * $x_{j}=a+jh$ ; j=0,1,2,...,n 
+% 
+% * Ejemplo
+%
+% $n=10;$
+% $k=\frac{1+1}{10}=0.2;$
+% 
+% $x_{0}=-1,x_{1}=-0.8,x_{2}=-0.6,...,x_{9}=0.8,x_{10}=1;$
+%
+% $\int_{-1}^{1}e^{-x^{2}}dx=\frac{0.2}{2}\left \lfloor e^{-1}+2\sum_{j=1}^{n-1}e^{-x_{j}^{2}}+e^{-1} \right \rfloor -\frac{2}{12}(0.2)^{2}\left \lfloor -2e^{-u^{2}}(1-2u^{2}) \right \rfloor$
+%
+% $=1.4887+0.0133e^{-u^{2}}(1-2u^{2}); -1<u<1$
+%
+% 2. Regla compuesta de Simpson
+%
+% Se define así:
+%
+% $\int_{x_{0}}^{x_{2}}f(x)dx\approx\frac{h}{3}[f(x_{0})+4f(x_{1})+f(x_{2})]$
+%
+% $\int_{x_{a}}^{x_{b}}f(x)dx=\frac{h}{3}[f(a)+2\sum_{j=1}^{frac{n}{2}-1}f(x_{2j})+4\sum_{j=1}^{frac{n}{2}}f(x_{2j-1})+f(b)]-\frac{b-a}{180}h^{4}f^{4}(u)
+% \rightarrow u\epsilon (a,b)$
+%
+% Donde: 
+% 
+% * n es el número par de subintervalos
+%
+% * $k=\frac{b-a}{n}$  paso
+%
+% * $x_{j}=a+jh$ ; j=0,1,2,...,n 
+% 
+% * Ejemplo
+%
+% $n=10;$
+% $k=\frac{1+1}{10}=0.2;$
+% 
+% $x_{0}=-1,x_{1}=-0.8,x_{2}=-0.6,...,x_{9}=0.8,x_{10}=1;$
+%
+% $\int_{-1}^{1}e^{-x^{2}}dx=\frac{0.2}{8}\left \lfloor e^{-1}+2\sum_{j=1}^{4}e^{-x_{sj}^{2}}+4\sum_{j=1}^{5}e^{(x_{2j}-1)^2}+e^{-1} \right \rfloor -\frac{2}{180}(0.2)^{4}\left \lfloor -4e^{-u^{2}}(-4u^{2}+12u^{2}-3) \right \rfloor$
+%
+% $=1.4936+0.000021e^{-u^{2}}(-4u^{2}+12u^{2}-3); -1<u<1$
+%
+%
+% Otra aproximación es la Cuadratura Gaussiana esta trata de aproximar una integral
+% en un intervalo por evaluaciones en determinados puntos por determinadas constantes (el número de evaluaciones tiene restricciones, $2n$ parámetros). 
+% Para la aproximación se utilizan polinomios de Legendre que se tiene propiedades importantes en el intervalo $(-1,1)$ 
+%
+% Se define así :
+%
+% $\int_{a}^{b}f(x)dx=\sum_{i=1}^{n}C_{i}f(x_{i})$
+%
+% Resultado:
+%
+% * $P_{n}(x)$ es el polinomio de Legendre (con grado menor que $2n$), entonces x_{1},x_{2},...,x_{n} son raíces de P_{n}(x) y estas son reales
+%
+% * $C_{i}=\int_{-1}^{1}\prod_{j=1}^{n}\frac{x-x_{j}}{x_{c}-x_{j}}dx$
+% entonces $\int_{a}^{b}P(x)dx= \sum_{i=1}^{n}C_{i}P(x_{j})$
+%
+% Como no siempre se quieres integrar en el intervalo $(-1,1)$, se hace el
+% siguiente cambio de variable:
+% 
+% $t=\frac{2x-a-b}{b}$
+%
+% $x=\frac{1}{2}[(b-a)t+a+b]$
+%
+% entonces:
+%
+% $\int_{a}^{b}f(x)dx=\int_{-1}^{1}f\left [ \frac{(b-a)t+b+a}{2} \right ](\frac{b-a}{2})dt$
+%
+% * Ejemplo con $n=2$
+%
+% $\int_{-1}^{1}e^{-x^{2}}dx=e^{(-0.5773502692)^2}+e^{(0.5773502692)^2}\approx
+% 1.4331$
+%
+% * Ejemplo con $n=3$
+%
+% $\int_{-1}^{1}e^{-x^{2}}dx=0.5555555556e^{(-0.7745966692)^2}+0.888888889+0.5555555556e^{(0.7745966692)^2}\approx
+% 1.4986$
+%% Desarrollo
+%
+% # Problema 1 (PR04 ejercicio 1: Convolución de señales)
+% # Problema 2 (PR04 ejercicio 1: Convolución de señales)
+% # Problema 3 (PR06 inciso e: Autocorrelación de una señal)
+% # Problema 4 (PR06 inciso f: Correlación de señales)
+%%
+% 1. Para el PR04 reporte la grafica de la simulación númerica de la convolución y compare con el resultado análitico que obtuvo para el problema 1, esto es, su práctica tendrá que incluir una llamada a la funciónn convconm y posteriormente se tendrá que mostrar (mediante el Publish) la gráfica tanto de las señales invlucradas como el resultado de la convolución, y en esta última gráficara su resultado analitico, se tendrá que incluir el resultado analitico.
+dt= 1e-3;
+t= -2:dt:3;
+x_t= (-t+1).*(u(t)-u(t-1))+(t-1).*(u(t-1)-u(t-2));
+h_t=u(t)-u(t-1);
+t1=0:0.1:1;
+t2=1:0.1:2;
+t3=2:0.1:3;
+
+figure(1)
+
+subplot(1,3,1)
+plot(t,x_t,'b .-');
+title('x(t)')
+grid on;
+axis([-0.5 2.5 -0.2 1.2]);
+
+subplot(1,3,2)
+plot(t,h_t,' b .-');
+title('h(t)')
+grid on; 
+axis([-0.5 1.5 -0.2 1.2]);
+
+subplot(1,3,3)
+plot(t1,(((t1.^2)/2)+1/4.*t1), 'y .');
+hold on;
+plot(t2, (t2.^2-3.*t2+5/2), 'g .');
+plot (t3, (((-t3.^2)/2)+2.*t3-3/2), 'c .');
+title('x(t)*h(t)')
+grid on;
+axis([-0.1 3.1 -0.1 0.7]);
+%%
+% 2. Para el PR04 reporte la grafica de la simulación númerica de la convolución y compare con el resultado análitico que obtuvo para el problema 3, esto es, su práctica tendrá que incluir una llamada a la funciónn convconm y posteriormente se tendrá que mostrar (mediante el Publish) la gráfica tanto de las señales invlucradas como el resultado de la convolución, y en esta última gráficara su resultado analitico, se tendrá que incluir el resultado analitico.
+
+clc
+clear all
+close all 
+syms t
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+dt= 1e-3;
+t= -2:dt:3;
+t1=0:0.1:4;
+f_t=t.*u(t) - (t-1).*u(t-1)- u(t-2);
+g_t=(u(t-1))-(u(t-3));
+figure(3)
+subplot(1,3,1)
+plot(t,f_t,'r .-');
+title('f(t)')
+grid on;
+axis([-0.3 2.2 -0.2 1.2]);
+
+subplot(1,3,2)
+plot(t,g_t,' r .-');
+title('g(t)')
+grid on; 
+axis([0.7 3.2 -0.2 1.2]);
+
+subplot (1,3,3)
+plot(t1, (((t1.^3)/2)-((8/2).*t1.^2)+(9.*t1)-2), 'c .');
+title('f(t)*g(t)')
+grid on
+axis ([-0.2 3.2 -0.1 5]);
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%%
+% 3. Para el PR06 reporte la grafica de la simulación númerica de la correalción y compare con el resultado análitico que obtuvo para el problema e), esto es, su práctica tendrá que incluir una llamada a la funciónn convconm y posteriormente se tendrá que mostrar (mediante el Publish) la gráfica tanto de las señales involucradas como el resultado de su correlación, y en esta última graficara su resultado analitico, se tendrá que incluir el resultado analitico.
+clc
+clear all
+close all 
+syms t
+figure
+subplot(2,2,1)
+%x=piecewise(t<0,0,0<t<1,1.5*sin(pi*t),t>1,0);
+x = @(t) -1*(t>=-4&t<=-3)+1*(t>-3&t<=0)+0*(t<-4&t>0);
+x1 = @(t) 1*(t>=0&t<=3)-1*(t>3&t<=4)+0*(t<0&t>4);
+fplot(x1,[-1,5],'r')
+grid on
+title('x(t)')
+axis([-3 6 -2 2]);
+subplot(2,2,2)
+%h=piecewise(t<0,0,0<t<1,1.5,1<t<2,0,2<t<2.5,-1.5,t>2.5,0);
+h = @(t) 1*(t>=0&t<=3)-1*(t>3&t<=4)+0*(t<0&t>4);
+fplot(h,[-1,5],'r')
+grid on
+title('h(t)')
+axis([-3 6 -2 2]);
+t1=-4:0.01:-3;
+t2=-3:0.01:-1;
+t3=-1:0.01:0;
+t4=0:0.01:1;
+t5=1:0.01:3;
+t6=3:0.01:4;
+subplot(2,2,3:4)
+hold on
+convconme(x,h)
+grid on
+subplot(2,2,3:4)
+hold on
+plot(t1,-t1-4,'r')
+plot(t2,t2+2,'c')
+plot(t3,3*t3+4,'g')
+plot(t4,-3*t4+4,'y')
+plot(t5,-1*t5+2,'m')
+plot(t6, t6-4,'b')
+grid on
+title('x(t)*h(t)')
+axis([-6 6 -2 5]);
+%%
+%4.-Para el PR06 reporte la grafica de la simulación númerica de la correalción y compare con el resultado análitico que obtuvo para el problema f), esto es, su práctica tendrá que incluir una llamada a la funciónn convconm y posteriormente se tendrá que mostrar (mediante el Publish) la gráfica tanto de las señales involucradas como el resultado de su correlación, y en esta última graficara su resultado analitico, se tendrá que incluir el resultado analitico.
+clc
+clear all
+close all 
+syms t
+figure
+subplot(2,2,1)
+%x=piecewise(t<0,0,0<t<1,1.5*sin(pi*t),t>1,0);
+x = @(t) -1*(t>=-4&t<=-2)+1*(t>-2&t<=0);
+x1 = @(t) 1*(t>=0&t<=2)-1*(t>2&t<=4);
+fplot(x1,[-2,5],'r')
+grid on
+title('x(t)')
+axis([-3 6 -2 2]);
+subplot(2,2,2)
+%h=piecewise(t<0,0,0<t<1,1.5,1<t<2,0,2<t<2.5,-1.5,t>2.5,0);
+h = @(t) 1*(t>=0&t<=3)-1*(t>3&t<=4)+0*(t<0&t>4);
+fplot(h,[-2,5],'r')
+grid on
+title('h(t)')
+axis([-3 6 -2 2]);
+t1=-4:0.01:-2;
+t2=-2:0.01:-1;
+t3=-1:0.01:0;
+t4=0:0.01:1;
+t5=1:0.01:2;
+t6=2:0.01:3;
+t7=3:0.01:4;
+subplot(2,2,3:4)
+hold on
+convconmf(x,h)
+grid on
+subplot(2,2,3:4)
+hold on
+plot(t1,-t1-4,'r')
+plot(t2,t2,'c')
+plot(t3,3*t3+2,'g')
+plot(t4,t4+2,'b')
+plot(t5,-3*t5+6,'m')
+plot(t6, -t6+2,'r')
+plot(t7, t7-4,'c')
+grid on
+title('x(t)*h(t)')
+axis([-6 6 -4 4]);
+%%
+%Referencias  
+%https://es.wikipedia.org/wiki/Integración_numérica
+
+##### SOURCE END #####
+--></body></html>
