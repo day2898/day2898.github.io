@@ -1,0 +1,420 @@
+%% RPL04
+%%
+%Práctica 4: Convolución y Correlación de señales en tiempo continuo
+%%
+% | Unidad Profesional Interdisciplinaria en Ingeniería y Tecnologías Avanzadas |
+%
+%           | Señales y Sistemas |
+%
+%   INTEGRANTES
+% * Fajardo Granados Dayra Gabriela
+% * Ortíz Islas José Manuel
+% * Rodríguez Castillo silvia
+%
+%   PROFESOR
+% * Dr. Rafael Martínez Martínez
+%
+%   GRUPO
+% * 2TV2
+%
+%   FECHA 
+%
+% 12 de Noviembre de 2018
+%% Objetivos
+%
+%
+% # Conocer métodos básicos de integración numérica.
+% # Manipulación de instrucciones en MATLAB.
+% # Simular convoluciones y correlaciones de señales continuas.
+%
+%% Introducción.
+%
+% La <https://es.wikipedia.org/wiki/Integraci%C3%B3n_num%C3%A9rica
+% Integración numérica> constituye una amplia gama de algoritmos para 
+% calcular el valor numérico de una integral definida. El problema básico 
+% considerado por la integración numérica es calcular una solución 
+% aproximada a la integral definida.
+%
+% Integral: Asociamos a este simbolo 
+%
+% $\int_{a}^{b}f(x)dx$
+%
+% el área definida por:
+%
+% * La gráfica de la función  $f(x)$
+% * La recta   $l_{1}((a,0),(a,f(a)))$
+% * La recta   $l_{2}((b,0),(b,f(b)))$
+% * La recta    $l_{3}((a,0),(b,0))$
+% E=imread('1.jpg');
+% 
+% <<1.PNG>>
+% 
+% <<1.jpg>>
+% 
+% Una de estas apróximaciones son las fórmulas cerradas de Newton-Cotes
+% ya que estas resuelven problemas para funciones continuas y derivables
+% $n$ veces asociando un polinomio de Lagrange y un termino de error a la función, es
+% decir:
+%
+% $f(x)=P(x)+\frac{f^{n+1}(\xi (x))}{(n+1)!}(x-x_{0})(x-x_{1})...(x-x_{n})$
+%
+% 
+% 
+% <<2.jpg>>
+% 
+% 
+% Fórmula cerrada de (n+1) puntos de Newton-Cotes: Se refiere al
+% grado del polinomio y la asosiación de los puntos que se necesitan para
+% interpolarlo con la función. Se tomaran en cuenta los siguientes parámetros:
+%
+% $x_{0}=a$
+%
+% $x_{n}=b$
+%
+% $h=\frac{b-a}{n}$
+%
+% $x_{i}=x_{0}+ih; i=0,1,2,...,n.$
+%
+%
+% 
+% 1. Regla del trapecio: Es el área del trapecio definida por el polinomio
+% de grado 1 (n=1). Se define así 
+%
+% $\int_{x_{0}}^{x_{1}}f(x)dx=\frac{h}{2}[f(x_{0})+f(x_{1})]-\frac{h^{3}}{12}f^{''}(\xi
+% )$ ; $x_{0}<\xi<x_{1}$
+% 
+% Para este caso los parámetros son:
+%
+% $x_{0}=a$
+%
+% $x_{1}=b$
+%
+% $h=b-a$
+%
+% $x_{i}=a+i(b-a); i=0,1.$
+%
+% Esta fórmula tiene grado de precisión 1, es decir, como el polinomio es
+% de grado 1 su segunda derivada es cero por lo que no hay error (la
+% aproximación es exacta).
+%
+% * Ejemplo
+%
+% $\int_{x_{-1}}^{x_{1}}e^{-x^{2}}dx=\frac{2}{2}[e^{-1}+e^{-1}]-\frac{8}{12}[-2e^{\xi^{2}}(1-2\xi^{2})]; -1<\xi<1$
+% 
+% $=0.7357+\frac{4}{3}e^{\xi^{2}}(1-2\xi^{2}); -1<\xi<1$
+%
+% 2. Regla de Simpson: Es el área definida por la parábola que pasa por
+% los puntos $x_{0},x_{1} y x_{2}$ (n=2). Se define así 
+%
+% $\int_{x_{0}}^{x_{1}}f(x)dx=\frac{h}{3}[f(x_{0})+4f(x_{1})+f(x_{2})]-\frac{h^{5}}{90}f^{4}(\xi
+% )$ ; $x_{0}<\xi<x_{2}$
+% 
+% Para este caso los parámetros son:
+%
+% $x_{0}=a$
+%
+% $x_{2}=b$
+%
+% $h=\frac{b-a}{2}$
+%
+% $x_{i}=a+ih; i=0,1,2. \rightarrow x_{1}=a+i(\frac{b-a}{2})=\frac{b+a}{2}$
+%
+% Esta fórmula tiene grado de precisión 3, es decir, como el polinomio es
+% de grado 3 su cuarta derivada es cero por lo que no hay error (la
+% aproximación es exacta).
+%
+% * Ejemplo
+%
+% $\int_{x_{-1}}^{x_{1}}e^{-x^{2}}dx=\frac{1}{3}[e^{-1}+4e^{0}+e^{-1}]-\frac{1}{90}[-4e^{\xi^{2}}(-4\xi^{4}+12\xi^{2}-3)]; -1<\xi<1$
+% 
+% $=1.5785+\frac{2}{45}e^{-\xi^{2}}(-4\xi^{4}+12\xi^{2}-3); -1<\xi<1$
+%
+%
+%
+% 3. Regla tres octavos de Simpson: Es el área definida por los puntos $x_{0},x_{1},x_{2} y x_{3}$ (n=3). 
+% Se define así 
+%
+% $\int_{x_{0}}^{x_{1}}f(x)dx=\frac{3h}{8}[f(x_{0})+5f(x_{1})+3f(x_{2}+f(x_{3})]-\frac{-3h^{5}}{80}f^{4}(\xi
+% )$ ; $x_{0}<\xi<x_{3}$
+% 
+% Para este caso los parámetros son:
+%
+% $x_{0}=a$
+%
+% $x_{3}=b$
+%
+% $h=\frac{b-a}{3}$
+%
+% $x_{i}=a+ih; i=0,1,2. \rightarrow x_{1}=a+(\frac{b-a}{3})=\frac{b+2a}{3}\rightarrow x_{2}=a+2(\frac{b-a}{3})=a+\frac{2b-2a2a}{3}$
+%
+% Esta fórmula tiene grado de precisión 3, es decir, como el polinomio es
+% de grado 3 su cuarta derivada es cero por lo que no hay error (la
+% aproximación es exacta).
+%
+% * Ejemplo
+%
+% $\int_{x_{-1}}^{x_{1}}e^{-x^{2}}dx=(\frac{3}{8})(\frac{2}{3})[e^{-1}+3e^{-1/9}+3e^{-1/9}+e^{-1}]-(\frac{3}{80})(\frac{2}{5})^{5}[-4e^{\xi^{2}}(-4\xi^{4}+12\xi^{2}-3)]; -1<\xi<1$
+% 
+% $=1.5261+\frac{8}{405}e^{-\xi^{2}}(-4\xi^{4}+12\xi^{2}-3); -1<\xi<1$
+%
+% NOTA: Mientras más interpolaciones haya mejor será la aproxcimación.
+% 
+% 
+% Fórmulas de Newton-Cotes compuestas: Se busca aproximar con más de un
+% trapecio, este se tratara de forma independiente 
+%
+% 1. Regla compuesta del trapecio
+%
+% Se define así:
+%
+% $\int_{x_{0}}^{x_{1}}f(x)dx\approx\frac{h}{a}[f(x_{0})+f(x_{1})]$
+%
+% $\int_{x_{a}}^{x_{b}}f(x)dx=\frac{h}{2}[f(a)+\sum_{j=1}^{n-1}f(x_{j})+f(b)]-\frac{b-a}{2}h^{2}f^{''}(u)
+% \rightarrow u\epsilon (a,b)$
+%
+% Donde: 
+% 
+% * n es el número de subintervalos
+%
+% * $k=\frac{b-a}{n}$  paso
+%
+% * $x_{j}=a+jh$ ; j=0,1,2,...,n 
+% 
+% * Ejemplo
+%
+% $n=10;$
+% $k=\frac{1+1}{10}=0.2;$
+% 
+% $x_{0}=-1,x_{1}=-0.8,x_{2}=-0.6,...,x_{9}=0.8,x_{10}=1;$
+%
+% $\int_{-1}^{1}e^{-x^{2}}dx=\frac{0.2}{2}\left \lfloor e^{-1}+2\sum_{j=1}^{n-1}e^{-x_{j}^{2}}+e^{-1} \right \rfloor -\frac{2}{12}(0.2)^{2}\left \lfloor -2e^{-u^{2}}(1-2u^{2}) \right \rfloor$
+%
+% $=1.4887+0.0133e^{-u^{2}}(1-2u^{2}); -1<u<1$
+%
+% 2. Regla compuesta de Simpson
+%
+% Se define así:
+%
+% $\int_{x_{0}}^{x_{2}}f(x)dx\approx\frac{h}{3}[f(x_{0})+4f(x_{1})+f(x_{2})]$
+%
+% $\int_{x_{a}}^{x_{b}}f(x)dx=\frac{h}{3}[f(a)+2\sum_{j=1}^{frac{n}{2}-1}f(x_{2j})+4\sum_{j=1}^{frac{n}{2}}f(x_{2j-1})+f(b)]-\frac{b-a}{180}h^{4}f^{4}(u)
+% \rightarrow u\epsilon (a,b)$
+%
+% Donde: 
+% 
+% * n es el número par de subintervalos
+%
+% * $k=\frac{b-a}{n}$  paso
+%
+% * $x_{j}=a+jh$ ; j=0,1,2,...,n 
+% 
+% * Ejemplo
+%
+% $n=10;$
+% $k=\frac{1+1}{10}=0.2;$
+% 
+% $x_{0}=-1,x_{1}=-0.8,x_{2}=-0.6,...,x_{9}=0.8,x_{10}=1;$
+%
+% $\int_{-1}^{1}e^{-x^{2}}dx=\frac{0.2}{8}\left \lfloor e^{-1}+2\sum_{j=1}^{4}e^{-x_{sj}^{2}}+4\sum_{j=1}^{5}e^{(x_{2j}-1)^2}+e^{-1} \right \rfloor -\frac{2}{180}(0.2)^{4}\left \lfloor -4e^{-u^{2}}(-4u^{2}+12u^{2}-3) \right \rfloor$
+%
+% $=1.4936+0.000021e^{-u^{2}}(-4u^{2}+12u^{2}-3); -1<u<1$
+%
+%
+% Otra aproximación es la Cuadratura Gaussiana esta trata de aproximar una integral
+% en un intervalo por evaluaciones en determinados puntos por determinadas constantes (el número de evaluaciones tiene restricciones, $2n$ parámetros). 
+% Para la aproximación se utilizan polinomios de Legendre que se tiene propiedades importantes en el intervalo $(-1,1)$ 
+%
+% Se define así :
+%
+% $\int_{a}^{b}f(x)dx=\sum_{i=1}^{n}C_{i}f(x_{i})$
+%
+% Resultado:
+%
+% * $P_{n}(x)$ es el polinomio de Legendre (con grado menor que $2n$), entonces x_{1},x_{2},...,x_{n} son raíces de P_{n}(x) y estas son reales
+%
+% * $C_{i}=\int_{-1}^{1}\prod_{j=1}^{n}\frac{x-x_{j}}{x_{c}-x_{j}}dx$
+% entonces $\int_{a}^{b}P(x)dx= \sum_{i=1}^{n}C_{i}P(x_{j})$
+%
+% Como no siempre se quieres integrar en el intervalo $(-1,1)$, se hace el
+% siguiente cambio de variable:
+% 
+% $t=\frac{2x-a-b}{b}$
+%
+% $x=\frac{1}{2}[(b-a)t+a+b]$
+%
+% entonces:
+%
+% $\int_{a}^{b}f(x)dx=\int_{-1}^{1}f\left [ \frac{(b-a)t+b+a}{2} \right ](\frac{b-a}{2})dt$
+%
+% * Ejemplo con $n=2$
+%
+% $\int_{-1}^{1}e^{-x^{2}}dx=e^{(-0.5773502692)^2}+e^{(0.5773502692)^2}\approx
+% 1.4331$
+%
+% * Ejemplo con $n=3$
+%
+% $\int_{-1}^{1}e^{-x^{2}}dx=0.5555555556e^{(-0.7745966692)^2}+0.888888889+0.5555555556e^{(0.7745966692)^2}\approx
+% 1.4986$
+%% Desarrollo
+%
+% # Problema 1 (PR04 ejercicio 1: Convolución de señales)
+% # Problema 2 (PR04 ejercicio 1: Convolución de señales)
+% # Problema 3 (PR06 inciso e: Autocorrelación de una señal)
+% # Problema 4 (PR06 inciso f: Correlación de señales)
+%%
+% 1. Para el PR04 reporte la grafica de la simulación númerica de la convolución y compare con el resultado análitico que obtuvo para el problema 1, esto es, su práctica tendrá que incluir una llamada a la funciónn convconm y posteriormente se tendrá que mostrar (mediante el Publish) la gráfica tanto de las señales invlucradas como el resultado de la convolución, y en esta última gráficara su resultado analitico, se tendrá que incluir el resultado analitico.
+dt= 1e-3;
+t= -2:dt:3;
+x_t= (-t+1).*(u(t)-u(t-1))+(t-1).*(u(t-1)-u(t-2));
+h_t=u(t)-u(t-1);
+t1=0:0.1:1;
+t2=1:0.1:2;
+t3=2:0.1:3;
+
+figure(1)
+
+subplot(1,3,1)
+plot(t,x_t,'b .-');
+title('x(t)')
+grid on;
+axis([-0.5 2.5 -0.2 1.2]);
+
+subplot(1,3,2)
+plot(t,h_t,' b .-');
+title('h(t)')
+grid on; 
+axis([-0.5 1.5 -0.2 1.2]);
+
+subplot(1,3,3)
+plot(t1,(((t1.^2)/2)+1/4.*t1), 'y .');
+hold on;
+plot(t2, (t2.^2-3.*t2+5/2), 'g .');
+plot (t3, (((-t3.^2)/2)+2.*t3-3/2), 'c .');
+title('x(t)*h(t)')
+grid on;
+axis([-0.1 3.1 -0.1 0.7]);
+%%
+% 2. Para el PR04 reporte la grafica de la simulación númerica de la convolución y compare con el resultado análitico que obtuvo para el problema 3, esto es, su práctica tendrá que incluir una llamada a la funciónn convconm y posteriormente se tendrá que mostrar (mediante el Publish) la gráfica tanto de las señales invlucradas como el resultado de la convolución, y en esta última gráficara su resultado analitico, se tendrá que incluir el resultado analitico.
+
+clc
+clear all
+close all 
+syms t
+
+%----------------------------------------------------
+dt= 1e-3;
+t= -2:dt:3;
+t1=0:0.1:4;
+f_t=t.*u(t) - (t-1).*u(t-1)- u(t-2);
+g_t=(u(t-1))-(u(t-3));
+figure(3)
+subplot(1,3,1)
+plot(t,f_t,'r .-');
+title('f(t)')
+grid on;
+axis([-0.3 2.2 -0.2 1.2]);
+
+subplot(1,3,2)
+plot(t,g_t,' r .-');
+title('g(t)')
+grid on; 
+axis([0.7 3.2 -0.2 1.2]);
+
+subplot (1,3,3)
+plot(t1, (((t1.^3)/2)-((8/2).*t1.^2)+(9.*t1)-2), 'c .');
+title('f(t)*g(t)')
+grid on
+axis ([-0.2 3.2 -0.1 5]);
+%--------------------------------------------
+
+%%
+% 3. Para el PR06 reporte la grafica de la simulación númerica de la correalción y compare con el resultado análitico que obtuvo para el problema e), esto es, su práctica tendrá que incluir una llamada a la funciónn convconm y posteriormente se tendrá que mostrar (mediante el Publish) la gráfica tanto de las señales involucradas como el resultado de su correlación, y en esta última graficara su resultado analitico, se tendrá que incluir el resultado analitico.
+clc
+clear all
+close all 
+syms t
+figure
+subplot(2,2,1)
+%x=piecewise(t<0,0,0<t<1,1.5*sin(pi*t),t>1,0);
+x = @(t) -1*(t>=-4&t<=-3)+1*(t>-3&t<=0)+0*(t<-4&t>0);
+x1 = @(t) 1*(t>=0&t<=3)-1*(t>3&t<=4)+0*(t<0&t>4);
+fplot(x1,[-1,5],'r')
+grid on
+title('x(t)')
+axis([-3 6 -2 2]);
+subplot(2,2,2)
+%h=piecewise(t<0,0,0<t<1,1.5,1<t<2,0,2<t<2.5,-1.5,t>2.5,0);
+h = @(t) 1*(t>=0&t<=3)-1*(t>3&t<=4)+0*(t<0&t>4);
+fplot(h,[-1,5],'r')
+grid on
+title('h(t)')
+axis([-3 6 -2 2]);
+t1=-4:0.01:-3;
+t2=-3:0.01:-1;
+t3=-1:0.01:0;
+t4=0:0.01:1;
+t5=1:0.01:3;
+t6=3:0.01:4;
+subplot(2,2,3:4)
+hold on
+convconme(x,h)
+grid on
+subplot(2,2,3:4)
+hold on
+plot(t1,-t1-4,'r')
+plot(t2,t2+2,'c')
+plot(t3,3*t3+4,'g')
+plot(t4,-3*t4+4,'y')
+plot(t5,-1*t5+2,'m')
+plot(t6, t6-4,'b')
+grid on
+title('x(t)*h(t)')
+axis([-6 6 -2 5]);
+%%
+%4.-Para el PR06 reporte la grafica de la simulación númerica de la correalción y compare con el resultado análitico que obtuvo para el problema f), esto es, su práctica tendrá que incluir una llamada a la funciónn convconm y posteriormente se tendrá que mostrar (mediante el Publish) la gráfica tanto de las señales involucradas como el resultado de su correlación, y en esta última graficara su resultado analitico, se tendrá que incluir el resultado analitico.
+clc
+clear all
+close all 
+syms t
+figure
+subplot(2,2,1)
+%x=piecewise(t<0,0,0<t<1,1.5*sin(pi*t),t>1,0);
+x = @(t) -1*(t>=-4&t<=-2)+1*(t>-2&t<=0);
+x1 = @(t) 1*(t>=0&t<=2)-1*(t>2&t<=4);
+fplot(x1,[-2,5],'r')
+grid on
+title('x(t)')
+axis([-3 6 -2 2]);
+subplot(2,2,2)
+%h=piecewise(t<0,0,0<t<1,1.5,1<t<2,0,2<t<2.5,-1.5,t>2.5,0);
+h = @(t) 1*(t>=0&t<=3)-1*(t>3&t<=4)+0*(t<0&t>4);
+fplot(h,[-2,5],'r')
+grid on
+title('h(t)')
+axis([-3 6 -2 2]);
+t1=-4:0.01:-2;
+t2=-2:0.01:-1;
+t3=-1:0.01:0;
+t4=0:0.01:1;
+t5=1:0.01:2;
+t6=2:0.01:3;
+t7=3:0.01:4;
+subplot(2,2,3:4)
+hold on
+convconmf(x,h)
+grid on
+subplot(2,2,3:4)
+hold on
+plot(t1,-t1-4,'r')
+plot(t2,t2,'c')
+plot(t3,3*t3+2,'g')
+plot(t4,t4+2,'b')
+plot(t5,-3*t5+6,'m')
+plot(t6, -t6+2,'r')
+plot(t7, t7-4,'c')
+grid on
+title('x(t)*h(t)')
+axis([-6 6 -4 4]);
+%%
+%Referencias  
+%https://es.wikipedia.org/wiki/Integración_numérica
